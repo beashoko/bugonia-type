@@ -9,5 +9,17 @@
   <body>
     <canvas id="bg"></canvas>
     <script type="module" src="./main.js"></script>
+
+    <audio id="keySound" src="sounds/click.mp3" preload="auto"></audio>
+
+    <script>
+        const sound = document.getElementById("keySound");
+
+        window.addEventListener("keydown", () => {
+            // rewind to start so it can replay rapidly
+            sound.currentTime = 0;
+            sound.play();
+        });
+    </script>
   </body>
 </html>

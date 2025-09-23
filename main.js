@@ -68,8 +68,15 @@ window.addEventListener('keyup', e => {
 });
 
 // ANIMATE
-function animate() {
+function animate(time) {
     requestAnimationFrame(animate);
+
+
+    const t = time * 0.001; // convert ms to seconds
+    camera.position.x = 5 + Math.sin(t * 0.5) * 0.5;  // side-to-side
+    camera.position.y = 40 + Math.sin(t * 0.7) * 0.3; // slight up/down
+
+    camera.lookAt(5, 2.5, 0);
 
     for (const key in cubes) {
         const cube = cubes[key];
