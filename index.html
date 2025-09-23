@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Typing Test</title>
+  </head>
+  <body>
+    <canvas id="bg"></canvas>
+    <script type="module" src="./main.js"></script>
+    <audio id="sound" src="sounds/note.mp3"></audio>
+
+    <script>
+        const audio = document.getElementById("sound");
+
+        window.addEventListener("keydown", () => {
+            audio.currentTime = 0; // restart if already playing
+            audio.play();
+        });
+    </script>
+  </body>
+</html>
