@@ -5,20 +5,18 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 
-// SCENE AND CAMERA
+// SCENE
 const scene = new THREE.Scene() ;
 {
-    const color = 0xFFFFFF;  // white
-    const near = 1;
-    const far = 100;
-    scene.fog = new THREE.Fog(color, near, far);
     scene.background = new THREE.Color('#8b9197');
 }
 
+//CAMERA
+
 const fov = 45;
-const aspect = window.innerWidth / window.innerHeight  // the canvas default
-const near = 0.1;
-const far = 1000;
+const aspect = window.innerWidth / window.innerHeight
+const near = 10;
+const far = 100;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 camera.position.set(0, 10, 20);
 
@@ -38,82 +36,61 @@ renderer.render(scene, camera);
 
 // LIGHTS
 const color = 0xFFFFFF;
-const intensity = 1;
-const light = new THREE.AmbientLight(color, intensity);
+const intensity = 200;
+const light = new THREE.PointLight(color, intensity);
+light.position.set(5, 10, 0);
 scene.add(light);
 
-// GUI controls
-import GUI from 'lil-gui';
+//BOX
 
-const gui = new GUI();
+const geometry = new THREE.BoxGeometry(5, 5, 5);
 
-const lightSettings = {
-    color: '#' + color.toString(16).padStart(6, '0'),
-    intensity: intensity,
-};
-
-gui.addColor(lightSettings, 'color').onChange((value) => {
-    light.color.set(value);
-});
-
-gui.add(lightSettings, 'intensity', 0, 2).onChange((value) => {
-    light.intensity = value;
-});
-
-
-// plane
-
-{
-
-    const planeSize = 40;
-
-    const loader = new THREE.TextureLoader();
-    const texture = loader.load( 'https://threejs.org/manual/examples/resources/images/checker.png' );
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.magFilter = THREE.NearestFilter;
-    texture.colorSpace = THREE.SRGBColorSpace;
-    const repeats = planeSize / 2;
-    texture.repeat.set( repeats, repeats );
-
-    const planeGeo = new THREE.PlaneGeometry( planeSize, planeSize );
-    const planeMat = new THREE.MeshPhongMaterial( {
-        map: texture,
-        side: THREE.DoubleSide,
-    } );
-    const mesh = new THREE.Mesh( planeGeo, planeMat );
-    mesh.rotation.x = Math.PI * - .5;
-    scene.add( mesh );
-
+function createCube(color, xPos, zPos = 0) {
+    const cube = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color }));
+    cube.position.set(xPos, 5, zPos);
+    scene.add(cube);
+    return cube;
 }
 
+const cubes = {
+    w: createCube(0xff0000, 5, -6.5),  // red cube at x = -15, z = 10
+    a: createCube(0x00ff00, -2, 0),
+    s: createCube(0x0000ff, 5, 0),
+    d: createCube(0xffff00, 12, 0),
+};
 
 
-const geometry = new THREE.BoxGeometry(10, 10, 10, 100);
-const textureLoader = new THREE.TextureLoader();
-const boxTexture = textureLoader.load('attorney.jpg'); // 🐶 Replace with your image path
+const keysPressed = { w: false, a: false, s: false, d: false };
 
-const material = new THREE.MeshPhongMaterial({
-    map: boxTexture,
+const originalY = 5;
+const downY = 4;
+const speed = 0.8;
+
+// Event listeners track key state properly
+window.addEventListener('keydown', e => {
+    const key = e.key.toLowerCase();
+    if (key in keysPressed) {
+        keysPressed[key] = true;
+    }
 });
-const box = new THREE.Mesh(geometry, material);
-box.position.y = 10;
 
-scene.add(box)
+window.addEventListener('keyup', e => {
+    const key = e.key.toLowerCase();
+    if (key in keysPressed) {
+        keysPressed[key] = false;
+    }
+});
 
-
-
-// LOOP
 function animate() {
     requestAnimationFrame(animate);
 
-    box.rotation.y += 0.01;
-    box.rotation.x += 0.01;
-    box.rotation.z += 0.01;
+    for (const key in cubes) {
+        const cube = cubes[key];
+        const targetY = keysPressed[key] ? downY : originalY;
+        cube.position.y += (targetY - cube.position.y) * speed;
+    }
 
     renderer.render(scene, camera);
 }
 
-
-
-animate()
+animate();
