@@ -10,15 +10,5 @@
   </head>
   <body>
     <canvas id="bg"></canvas>
-    <audio id="sound" src="sounds/note.mp3"></audio>
-
-    <script>
-        const audio = document.getElementById("sound");
-
-        window.addEventListener("keydown", () => {
-            audio.currentTime = 0; // restart if already playing
-            audio.play();
-        });
-    </script>
   </body>
 </html>
