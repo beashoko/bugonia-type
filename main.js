@@ -44,7 +44,7 @@ const speed = 0.8;
 // KEYCAP
 const loader = new GLTFLoader();
 loader.load(
-    '/models/demo_keycap.gltf',
+    './models/demo_keycap.gltf',
     function (gltf) {
         const baseKeycap = gltf.scene;
         baseKeycap.scale.set(5, 5, 5);
