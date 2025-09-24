@@ -4,23 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D Typing Test</title>
-    <script type="module" crossorigin src="/bugonia-type/assets/index-CjssXi61.js"></script>
-    <link rel="stylesheet" crossorigin href="/bugonia-type/assets/index-6oPTpkNV.css">
+    <title>Bugonia Type</title>
+    <script type="module" crossorigin src="/bugonia-type/assets/index-CIHDq-SX.js"></script>
+    <link rel="stylesheet" crossorigin href="/bugonia-type/assets/index-DpoGA1vY.css">
   </head>
   <body>
-    <canvas id="bg"></canvas>
+  <canvas id="bg"></canvas>
 
-    <audio id="keySound" src="/bugonia-type/assets/click-Bp8aIUl9.mp3" preload="auto"></audio>
+  <div class="overlay">
+      <p>This is a demo test, press w a s d</p>
+  </div>
 
-    <script>
-        const sound = document.getElementById("keySound");
 
-        window.addEventListener("keydown", () => {
-            // rewind to start so it can replay rapidly
-            sound.currentTime = 0;
-            sound.play();
-        });
-    </script>
+  <audio id="keySound" src="/bugonia-type/assets/click-Bp8aIUl9.mp3" preload="auto"></audio>
+  <script>
+      const sound = document.getElementById("keySound");
+      window.addEventListener("keydown", () => {
+          sound.currentTime = 0;
+          sound.play();
+      });
+  </script>
   </body>
 </html>
