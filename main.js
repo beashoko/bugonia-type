@@ -17,7 +17,10 @@ camera.rotation.set(-Math.PI / 2.2, 0, 0);
 
 // RENDERER
 const canvas = document.querySelector('#bg');
-const renderer = new THREE.WebGLRenderer({ canvas });
+const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true
+});
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
