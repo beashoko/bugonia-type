@@ -4,22 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D Typing Test</title>
+    <title>Bugonia Type</title>
   </head>
   <body>
-    <canvas id="bg"></canvas>
-    <script type="module" src="./main.js"></script>
+  <canvas id="bg"></canvas>
 
-    <audio id="keySound" src="sounds/click.mp3" preload="auto"></audio>
+  <div class="overlay">
+      <p>This is a demo test, press w a s d</p>
+  </div>
 
-    <script>
-        const sound = document.getElementById("keySound");
+  <script type="module" src="./main.js"></script>
 
-        window.addEventListener("keydown", () => {
-            // rewind to start so it can replay rapidly
-            sound.currentTime = 0;
-            sound.play();
-        });
-    </script>
+  <audio id="keySound" src="sounds/click.mp3" preload="auto"></audio>
+  <script>
+      const sound = document.getElementById("keySound");
+      window.addEventListener("keydown", () => {
+          sound.currentTime = 0;
+          sound.play();
+      });
+  </script>
   </body>
 </html>
