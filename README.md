@@ -4,3 +4,5 @@
 all models created by me using blender
 
 this is a wip :p
+
+https://beashoko.github.io/bugonia-type
