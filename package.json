@@ -14,7 +14,9 @@
     "vite": "^7.1.7"
   },
   "dependencies": {
+    "@splinetool/loader": "^1.10.68",
+    "@splinetool/runtime": "^1.10.68",
     "lil-gui": "^0.20.0",
-    "three": "^0.180.0"
+    "three": "^0.152.2"
   }
 }
