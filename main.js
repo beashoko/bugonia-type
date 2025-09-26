@@ -12,7 +12,7 @@ const aspect = window.innerWidth / window.innerHeight;
 const near = 1;
 const far = 1000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(6, 80, 14);
+camera.position.set(5, 80, 14);
 camera.rotation.set(-Math.PI / 2.2, 0, 0);
 
 // RENDERER
@@ -46,7 +46,7 @@ const bgplane = new THREE.Mesh(planeGeometry, planeMaterial);
 bgplane.scale.set(2, 2, 2);
 bgplane.rotation.x = -Math.PI / 2;
 bgplane.position.set(6, -2, 9);
-scene.add(bgplane);
+
 
 // KEYCAP VARIABLES
 const keycaps = {};
@@ -55,7 +55,7 @@ const keysPressed = {
     a: false, s: false, d: false, f: false, g: false, h: false, j: false, k: false, l: false,
     z: false, x: false, c: false, v: false, b: false, n: false, m: false,
     ',': false, '.': false, "'": false, Backspace: false, Escape: false,
-    Shift: false, Control: false, Alt: false, Enter: false
+    Shift: false, Control: false, Alt: false, Enter: false, CapsLock: false, " ": false
 };
 
 const originalY = 2.5;
@@ -68,6 +68,8 @@ const specialKeyModels = {
     Control: './models/ctrl.gltf',
     Alt: './models/alt.gltf',
     Enter: './models/enter_keycap.gltf',
+    " ": './models/space_keycap.gltf',
+    CapsLock: './models/special_keycap.gltf',
 };
 
 
@@ -108,6 +110,8 @@ const keyTextures = {
     Control: texLoader.load('./textures/ctrl.png'),
     Alt: texLoader.load('./textures/alt.png'),
     Enter: texLoader.load('./textures/enter.png'),
+    " ": texLoader.load('./textures/shift.png'),
+    CapsLock: texLoader.load('./textures/shift.png'),
 };
 
 // KEY POSITIONS
@@ -148,7 +152,9 @@ const positions = {
     Enter: [59.2, originalY, 13.77],
     Shift: [-22, originalY, 13.7],
     Control: [-35, originalY, 13],
-    Alt: [-25, originalY, 13]
+    Alt: [-25, originalY, 13],
+    " ": [10.5, originalY, 20.3],
+    CapsLock: [-15, originalY, 0.4],
 };
 
 
@@ -264,6 +270,15 @@ keyTextures.Enter = texLoader.load('./textures/enter.png', (tex) => {
 // ANIMATE
 function animate(time) {
     requestAnimationFrame(animate);
+
+    const breathingStrength = 2;
+    const breathingSpeed = 0.5;
+    const offset = Math.sin(time * 0.001 * breathingSpeed) * breathingStrength;
+
+    camera.position.x = 3 + offset;
+    camera.position.y = 80;
+    camera.position.z = 10;
+    camera.lookAt(new THREE.Vector3(3, 0, -9));
 
     for (const key in keycaps) {
         const cap = keycaps[key];

@@ -14,9 +14,26 @@ canvas#bg {
 
 .overlay {
     position: absolute;
-    margin-top: 2px;
-    margin-left: 20px;
-    color: red;
-    font-size: 24px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20px;
     pointer-events: none;
+    font-size: large;
+}
+
+textarea {
+    width: 1200px;
+    height: 300px;
+    resize: none;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 32px;
+    pointer-events: auto;
+    background: none;
 }
